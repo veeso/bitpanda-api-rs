@@ -1,0 +1,33 @@
+[package]
+name = "bitpanda-api"
+version = "0.1.0"
+authors = ["Christian Visintin <christian.visintin1997@gmail.com>"]
+edition = "2021"
+categories = ["web-programming::http-client"]
+description = "Rust client for Bitpanda API"
+documentation = "https://docs.rs/bitpanda-api"
+homepage = "https://github.com/veeso/bitpanda-api-rs"
+include = ["src/**/*", "LICENSE", "README.md", "CHANGELOG.md"]
+keywords = ["bitpanda", "bitpanda-trades", "bitpanda-api"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/veeso/bitpanda-api-rs"
+
+[dependencies]
+chrono = { version = "^0.4", features = [ "serde" ] }
+log = "^0.4"
+reqwest = "^0.11"
+rust_decimal = "^1.26"
+serde = { version = "^1.0", features = [ "derive" ] }
+thiserror = "^1.0.0"
+
+[dev-dependencies]
+anyhow = "^1"
+pretty_assertions = "^1.2.1"
+rust_decimal_macros = "^1.26"
+tokio = { version = "^1.20", features = [ "full" ] }
+tracing = "^0.1"
+
+[features]
+default = []
+no-log = [ "log/max_level_off" ]
