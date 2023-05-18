@@ -17,12 +17,11 @@ impl FiatWalletTxResponse {
     pub fn next_page(&self) -> Option<usize> {
         if let Some(next) = &self.links.next {
             let rgx = regex!(r"page=([0-9]+)");
-            rgx.captures(next)
-                .and_then(|captures| {
-                    captures
-                        .get(1)
-                        .map(|capture| capture.as_str().parse().unwrap())
-                })
+            rgx.captures(next).and_then(|captures| {
+                captures
+                    .get(1)
+                    .map(|capture| capture.as_str().parse().unwrap())
+            })
         } else {
             None
         }
