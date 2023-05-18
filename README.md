@@ -7,8 +7,8 @@
   <a href="https://docs.rs/bitpanda-api" target="_blank">Documentation</a>
 </p>
 
-<p align="center">Developed by <a href="https://veeso.github.io/" target="_blank">@veeso</a></p>
-<p align="center">Current version: 0.1.2 (03/10/2022)</p>
+<p align="center">Developed by <a href="https://veeso.dev/" target="_blank">@veeso</a></p>
+<p align="center">Current version: 0.1.0 (18/05/2023)</p>
 
 <p align="center">
   <a href="https://opensource.org/licenses/MIT"
@@ -61,7 +61,7 @@
   - [About bitpanda-api 🐼](#about-bitpanda-api-)
   - [Get started 🏁](#get-started-)
     - [Add bitpanda-api to your Cargo.toml 🦀](#add-bitpanda-api-to-your-cargotoml-)
-    - [Parse CSV](#parse-csv)
+    - [Query Bitpanda](#query-bitpanda)
   - [Documentation 📚](#documentation-)
   - [Support the developer ☕](#support-the-developer-)
   - [Contributing and issues 🤝🏻](#contributing-and-issues-)
@@ -73,6 +73,15 @@
 ## About bitpanda-api 🐼
 
 bitpanda-api is a Rust client library for Bitpanda API.
+The library supports both the "private API" which requires the APIKEY and the public API. These data are exposed:
+
+- Public API
+  - Get assets
+  - Get OHLC for asset
+- Private API
+  - Get transactions
+  - Get trades
+  - Get wallets
 
 ---
 
@@ -84,9 +93,32 @@ bitpanda-api is a Rust client library for Bitpanda API.
 bitpanda-api = "^0.1.0"
 ```
 
-### Parse CSV
+### Query Bitpanda
 
 ```rust
+use bitpanda_api::Client;
+use bitpanda_api::model::AssetClass;
+use bitpanda_api::model::ohlc::Period;
+
+#[tokio::main]
+async fn main() {
+
+    let client = Client::default().x_apikey(env!("X_API_KEY"));
+
+    // collect my last 20 trades
+    client.get_trades_ex(Some(20)).await.expect("failed to collect trades");
+
+    // get OHLC for BTC of the last 5 years
+    let btc = client
+        .get_assets(AssetClass::Cryptocurrency)
+        .await
+        .unwrap()
+        .into_iter()
+        .find(|asset| asset.symbol == "BTC")
+        .unwrap();
+
+    let ohlc = client.get_ohlc(Period::FiveYears, &btc.pid, "EUR").await.unwrap();
+}
 ```
 
 ---

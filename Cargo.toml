@@ -1,7 +1,7 @@
 [package]
 name = "bitpanda-api"
 version = "0.1.0"
-authors = ["Christian Visintin <christian.visintin1997@gmail.com>"]
+authors = ["Christian Visintin <christian.visintin@veeso.dev>"]
 edition = "2021"
 categories = ["web-programming::http-client"]
 description = "Rust client for Bitpanda API"
