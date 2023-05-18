@@ -2,6 +2,10 @@
 
 use rust_decimal::Decimal;
 
+mod transaction;
+
+pub use transaction::CryptoWalletTransaction;
+
 /// Defines a Bitpanda wallet for cryptocurrencies
 #[derive(Debug, Clone, Eq, PartialEq, Hash, Deserialize)]
 pub struct CryptoWallet {

@@ -2,6 +2,10 @@
 
 use rust_decimal::Decimal;
 
+mod transaction;
+
+pub use transaction::FiatWalletTransaction;
+
 /// Defines a Bitpanda wallet for fiat currencies
 #[derive(Debug, Clone, Eq, PartialEq, Hash, Deserialize)]
 pub struct FiatWallet {

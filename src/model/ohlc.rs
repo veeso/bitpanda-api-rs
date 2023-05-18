@@ -8,13 +8,12 @@ use rust_decimal::Decimal;
 /// Open high low close chart type
 #[derive(Debug, Clone, Eq, PartialEq, Hash, Deserialize)]
 pub struct OpenHighLowCloseChart {
-    pub symbol: String,
     pub chart: Vec<Ohlc>,
     pub period: Period,
 }
 
 /// Defines an entry in the OHLC chart
-#[derive(Debug, Clone, Eq, PartialEq, Hash, Deserialize)]
+#[derive(Debug, Clone, Copy, Eq, PartialEq, Hash, Deserialize)]
 pub struct Ohlc {
     pub close: Decimal,
     pub high: Decimal,
@@ -30,4 +29,18 @@ pub enum Period {
     Week,
     Month,
     Year,
+    FiveYears,
+}
+
+impl ToString for Period {
+    fn to_string(&self) -> String {
+        match self {
+            Self::Day => "day",
+            Self::Month => "month",
+            Self::Week => "week",
+            Self::Year => "year",
+            Self::FiveYears => "five-years",
+        }
+        .to_string()
+    }
 }
